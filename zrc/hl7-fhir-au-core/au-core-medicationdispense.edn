@@ -1,0 +1,68 @@
+{ns hl7-fhir-au-core.au-core-medicationdispense,
+ import #{hl7-fhir-au-core.au-core-medicationrequest
+          zen.fhir
+          hl7-fhir-au-core.au-core-encounter
+          hl7-fhir-au-core.au-core-patient
+          hl7-fhir-au-core.au-core-practitionerrole
+          hl7-fhir-au-core.au-core-relatedperson
+          hl7-fhir-au-core.au-core-location
+          hl7-fhir-au-base.au-medicationdispense
+          hl7-fhir-au-core.au-core-practitioner
+          hl7-fhir-au-base.dispense-number
+          hl7-fhir-au-core.au-core-medication
+          hl7-fhir-au-core.au-core-organization},
+ schema {:zen.fhir/version "0.6.22",
+         :confirms #{hl7-fhir-au-base.au-medicationdispense/schema
+                     zen.fhir/Resource},
+         :zen/tags #{zen.fhir/profile-schema zen/schema},
+         :zen.fhir/profileUri "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationdispense",
+         :require #{:subject},
+         :type zen/map,
+         :zen/desc "This profile sets minimum expectations for a MedicationDispense resource to record, search, and fetch medication dispense history associated with a patient. It is based on the [AU Base Medication Dispense](http://build.fhir.org/ig/hl7au/au-fhir-base/StructureDefinition-au-medicationdispense.html) profile and identifies the *additional* mandatory core elements, extensions, vocabularies and value sets that **SHALL** be present in the MedicationDispense when conforming to this profile. It provides the floor for standards development for specific uses cases in an Australian context.",
+         :keys {:category {:fhir/flags #{:MS}},
+                :whenHandedOver {:fhir/flags #{:MS}},
+                :substitution {:type zen/map,
+                               :keys {:wasSubstituted {:fhir/flags #{:MS}}},
+                               :fhir/flags #{:MS}},
+                :statusReason {:fhir/flags #{:MS}},
+                :note {:type zen/vector, :every {:fhir/flags #{:MS}}},
+                :status {:fhir/flags #{:MS}},
+                :dosageInstruction {:type zen/vector,
+                                    :every {:fhir/flags #{:MS}}},
+                :dispenseNumber {:confirms #{hl7-fhir-au-base.dispense-number/schema},
+                                 :fhir/extensionUri "http://hl7.org.au/fhir/StructureDefinition/dispense-number",
+                                 :fhir/flags #{:MS}},
+                :daysSupply {:fhir/flags #{:MS}},
+                :identifier {:type zen/vector,
+                             :every {:fhir/flags #{:MS}}},
+                :context {:fhir/flags #{:MS},
+                          :confirms #{zen.fhir/Reference},
+                          :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-encounter/schema}}},
+                :quantity {:fhir/flags #{:MS}},
+                :location {:fhir/flags #{:MS},
+                           :confirms #{zen.fhir/Reference},
+                           :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-location/schema}}},
+                :authorizingPrescription {:type zen/vector,
+                                          :every {:fhir/flags #{:MS},
+                                                  :confirms #{zen.fhir/Reference},
+                                                  :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-medicationrequest/schema}}}},
+                :subject {:fhir/flags #{:MS},
+                          :confirms #{zen.fhir/Reference},
+                          :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-patient/schema}}},
+                :performer {:type zen/vector,
+                            :every {:type zen/map,
+                                    :keys {:function {:fhir/flags #{:MS}},
+                                           :actor {:fhir/flags #{:MS},
+                                                   :confirms #{zen.fhir/Reference},
+                                                   :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-practitionerrole/schema
+                                                                                  hl7-fhir-au-core.au-core-organization/schema
+                                                                                  hl7-fhir-au-core.au-core-practitioner/schema
+                                                                                  hl7-fhir-au-core.au-core-relatedperson/schema
+                                                                                  hl7-fhir-au-core.au-core-patient/schema}}}},
+                                    :fhir/flags #{:MS}}},
+                :medication {:fhir/polymorphic true,
+                             :type zen/map,
+                             :keys {:Reference {:confirms #{zen.fhir/Reference},
+                                                :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-medication/schema}}}},
+                             :fhir/flags #{:MS}}},
+         :zen.fhir/type "MedicationDispense"}}

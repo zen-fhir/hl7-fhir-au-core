@@ -1,0 +1,77 @@
+{ns hl7-fhir-au-core.au-core-diagnosticreport,
+ import #{hl7-fhir-au-core.au-core-diagnosticresult-imag
+          zen.fhir
+          hl7-fhir-au-base.au-diagnosticreport
+          hl7-fhir-au-core.au-core-patient
+          hl7-fhir-au-core.au-core-diagnosticresult-path
+          hl7-fhir-au-core.au-core-practitionerrole
+          hl7-fhir-au-core.au-core-diagnosticresult
+          hl7-fhir-au-core.au-core-servicerequest
+          hl7-fhir-au-core.au-core-practitioner
+          hl7-fhir-r4-core.value-set.diagnostic-service-sections
+          hl7-fhir-au-core.au-core-organization},
+ schema {:zen.fhir/version "0.6.22",
+         :confirms #{hl7-fhir-au-base.au-diagnosticreport/schema
+                     zen.fhir/Resource},
+         :zen/tags #{zen.fhir/profile-schema zen/schema},
+         :zen.fhir/profileUri "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticreport",
+         :require #{:category
+                    :effective
+                    :identifier
+                    :issued
+                    :subject
+                    :performer},
+         :type zen/map,
+         :zen/desc "This profile sets minimum expectations for a DiagnosticReport resource to record, search, and fetch diagnostic reports associated with a patient. It is based on the [AU Base Diagnostic Report](http://build.fhir.org/ig/hl7au/au-fhir-base/StructureDefinition-au-diagnosticreport.html) profile and identifies the *additional* mandatory core elements, extensions, vocabularies and value sets that **SHALL** be present in the DiagnosticReport when conforming to this profile. It provides the floor for standards development for specific uses cases in an Australian context.",
+         :keys {:category {:type zen/vector,
+                           :every {:fhir/flags #{:MS},
+                                   :zen.fhir/value-set {:symbol hl7-fhir-r4-core.value-set.diagnostic-service-sections/value-set,
+                                                        :strength :extensible}},
+                           :minItems 1},
+                :conclusionCode {:type zen/vector,
+                                 :every {:fhir/flags #{:MS}}},
+                :conclusion {:fhir/flags #{:MS}},
+                :status {:fhir/flags #{:MS},
+                         :zen/desc "partial | preliminary | final +"},
+                :result {:type zen/vector,
+                         :every {:type zen/map,
+                                 :require #{:reference},
+                                 :fhir/flags #{:MS},
+                                 :confirms #{zen.fhir/Reference},
+                                 :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-diagnosticresult/schema
+                                                                hl7-fhir-au-core.au-core-diagnosticresult-path/schema
+                                                                hl7-fhir-au-core.au-core-diagnosticresult-imag/schema}}}},
+                :effective {:fhir/polymorphic true,
+                            :type zen/map,
+                            :fhir/flags #{:MS}},
+                :code {:fhir/flags #{:MS},
+                       :zen/desc "Diagnostic examination name / study name / group name"},
+                :identifier {:type zen/vector,
+                             :every {:fhir/flags #{:MS}},
+                             :minItems 1},
+                :issued {:fhir/flags #{:MS},
+                         :zen/desc "Diagnostic report date time"},
+                :presentedForm {:type zen/vector,
+                                :every {:fhir/flags #{:MS}}},
+                :basedOn {:type zen/vector,
+                          :every {:fhir/flags #{:MS},
+                                  :confirms #{zen.fhir/Reference},
+                                  :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-servicerequest/schema}},
+                                  :zen/desc "Diagnostic investigation order"}},
+                :media {:type zen/vector,
+                        :every {:type zen/map,
+                                :keys {:link {:fhir/flags #{:MS},
+                                              :confirms #{zen.fhir/Reference},
+                                              :zen.fhir/reference {:refers #{}}}},
+                                :fhir/flags #{:MS}}},
+                :subject {:fhir/flags #{:MS},
+                          :confirms #{zen.fhir/Reference},
+                          :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-patient/schema}}},
+                :performer {:type zen/vector,
+                            :every {:fhir/flags #{:MS},
+                                    :confirms #{zen.fhir/Reference},
+                                    :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-practitionerrole/schema
+                                                                   hl7-fhir-au-core.au-core-organization/schema
+                                                                   hl7-fhir-au-core.au-core-practitioner/schema}}},
+                            :minItems 1}},
+         :zen.fhir/type "DiagnosticReport"}}

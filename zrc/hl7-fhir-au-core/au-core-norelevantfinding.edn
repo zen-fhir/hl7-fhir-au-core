@@ -1,0 +1,43 @@
+{ns hl7-fhir-au-core.au-core-norelevantfinding,
+ import #{hl7-fhir-r4-core.Observation
+          zen.fhir
+          hl7-fhir-au-core.au-core-norelevantfinding
+          hl7-fhir-au-core.au-core-patient
+          hl7-fhir-au-core.au-core-practitionerrole
+          hl7-fhir-au-core.au-core-relatedperson
+          hl7-fhir-au-core.au-core-organization},
+ referenceRange-schema {:zen/tags #{zen/schema
+                                    zen.fhir/structure-schema},
+                        :zen.fhir/version "0.6.22"},
+ schema {:zen.fhir/version "0.6.22",
+         :confirms #{hl7-fhir-r4-core.Observation/schema
+                     zen.fhir/Resource},
+         :zen/tags #{zen.fhir/profile-schema zen/schema},
+         :zen.fhir/profileUri "http://hl7.org.au/fhir/core/StructureDefinition/au-core-norelevantfinding",
+         :require #{:value :effective :subject},
+         :type zen/map,
+         :zen/desc "This profile sets minimum expectations for an Observation resource to record, search, and fetch observation of clinical assertions that there are no items of interest, e.g. no current medications, for a patient. It is based on the core [Observation](http://hl7.org/fhir/R4/observation.html) resource and identifies the *additional* mandatory core elements, extensions, vocabularies and value sets that **SHALL** be present in the Observation when conforming to this profile. It provides the floor for standards development for specific uses cases in an Australian context.",
+         :keys {:status {:const {:value "final"}, :fhir/flags #{:MS}},
+                :code {:match {:coding #{{:system "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                                          :code "ASSERTION"}}},
+                       :fhir/flags #{:MS}},
+                :subject {:fhir/flags #{:MS},
+                          :confirms #{zen.fhir/Reference},
+                          :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-patient/schema}}},
+                :effective {:fhir/polymorphic true,
+                            :type zen/map,
+                            :fhir/flags #{:MS},
+                            :zen/desc "Date, and optionally time, the observation was performed"},
+                :performer {:type zen/vector,
+                            :every {:fhir/flags #{:MS},
+                                    :confirms #{zen.fhir/Reference},
+                                    :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-practitionerrole/schema
+                                                                   hl7-fhir-au-core.au-core-organization/schema
+                                                                   hl7-fhir-au-core.au-core-relatedperson/schema
+                                                                   hl7-fhir-au-core.au-core-patient/schema}},
+                                    :zen/desc "Asserter of the statement"}},
+                :value {:fhir/polymorphic true,
+                        :type zen/map,
+                        :fhir/flags #{:MS}},
+                :referenceRange {:confirms #{hl7-fhir-au-core.au-core-norelevantfinding/referenceRange-schema}}},
+         :zen.fhir/type "Observation"}}

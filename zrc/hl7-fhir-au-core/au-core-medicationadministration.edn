@@ -1,0 +1,67 @@
+{ns hl7-fhir-au-core.au-core-medicationadministration,
+ import #{zen.fhir
+          hl7-fhir-au-core.au-core-encounter
+          hl7-fhir-au-core.au-core-observation
+          hl7-fhir-au-core.au-core-patient
+          hl7-fhir-au-core.au-core-practitionerrole
+          hl7-fhir-au-base.au-medicationadministration
+          hl7-fhir-au-core.au-core-relatedperson
+          hl7-fhir-au-core.au-core-diagnosticreport
+          hl7-fhir-au-core.au-core-practitioner
+          hl7-fhir-au-core.au-core-condition
+          hl7-fhir-au-core.au-core-medication},
+ schema {:zen/tags #{zen.fhir/profile-schema zen/schema},
+         :zen/desc "This profile sets minimum expectations for a MedicationAdministration resource to record, search, and fetch history of administration or consumption of non-vaccine medications associated with a patient. It is based on the [AU Base Medication Administration](http://build.fhir.org/ig/hl7au/au-fhir-base/StructureDefinition-au-medicationadministration.html) profile and identifies the *additional* mandatory core elements, extensions, vocabularies and value sets that **SHALL** be present in the MedicationAdministration when conforming to this profile. It provides the floor for standards development for specific uses cases in an Australian context.",
+         :zen.fhir/type "MedicationAdministration",
+         :zen.fhir/profileUri "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationadministration",
+         :zen.fhir/version "0.6.22",
+         :confirms #{hl7-fhir-au-base.au-medicationadministration/schema
+                     zen.fhir/Resource},
+         :type zen/map,
+         :keys {:category {:fhir/flags #{:MS}},
+                :dosage {:type zen/map,
+                         :keys {:text {:fhir/flags #{:MS}},
+                                :site {:fhir/flags #{:MS}},
+                                :route {:fhir/flags #{:MS}},
+                                :method {:fhir/flags #{:MS}},
+                                :dose {:fhir/flags #{:MS}},
+                                :rate {:fhir/polymorphic true,
+                                       :type zen/map,
+                                       :fhir/flags #{:MS}}},
+                         :fhir/flags #{:MS}},
+                :reasonCode {:type zen/vector,
+                             :every {:fhir/flags #{:MS}}},
+                :statusReason {:type zen/vector,
+                               :every {:fhir/flags #{:MS}}},
+                :note {:type zen/vector, :every {:fhir/flags #{:MS}}},
+                :status {:fhir/flags #{:MS}},
+                :effective {:fhir/polymorphic true,
+                            :type zen/map,
+                            :fhir/flags #{:MS}},
+                :context {:fhir/flags #{:MS},
+                          :confirms #{zen.fhir/Reference},
+                          :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-encounter/schema}}},
+                :subject {:fhir/flags #{:MS},
+                          :confirms #{zen.fhir/Reference},
+                          :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-patient/schema}}},
+                :performer {:type zen/vector,
+                            :every {:type zen/map,
+                                    :keys {:function {:fhir/flags #{:MS}},
+                                           :actor {:fhir/flags #{:MS},
+                                                   :confirms #{zen.fhir/Reference},
+                                                   :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-practitionerrole/schema
+                                                                                  hl7-fhir-au-core.au-core-practitioner/schema
+                                                                                  hl7-fhir-au-core.au-core-relatedperson/schema
+                                                                                  hl7-fhir-au-core.au-core-patient/schema}}}},
+                                    :fhir/flags #{:MS}}},
+                :medication {:fhir/polymorphic true,
+                             :type zen/map,
+                             :keys {:Reference {:confirms #{zen.fhir/Reference},
+                                                :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-medication/schema}}}},
+                             :fhir/flags #{:MS}},
+                :reasonReference {:type zen/vector,
+                                  :every {:fhir/flags #{:MS},
+                                          :confirms #{zen.fhir/Reference},
+                                          :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-observation/schema
+                                                                         hl7-fhir-au-core.au-core-condition/schema
+                                                                         hl7-fhir-au-core.au-core-diagnosticreport/schema}}}}}}}

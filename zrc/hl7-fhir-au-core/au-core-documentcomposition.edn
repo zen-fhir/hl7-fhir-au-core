@@ -1,0 +1,92 @@
+{ns hl7-fhir-au-core.au-core-documentcomposition,
+ import #{hl7-fhir-au-core.au-core-documentcomposition
+          hl7-fhir-au-base.information-recipient
+          zen.fhir
+          hl7-fhir-au-core.au-core-encounter
+          hl7-fhir-au-core.au-core-patient
+          hl7-fhir-au-core.au-core-practitionerrole
+          hl7-fhir-au-core.au-core-relatedperson
+          hl7-fhir-au-base.au-composition
+          hl7-fhir-au-core.au-core-device-system
+          hl7-fhir-au-core.au-core-organization},
+ schema {:zen.fhir/version "0.6.22",
+         :confirms #{hl7-fhir-au-base.au-composition/schema
+                     zen.fhir/Resource},
+         :zen/tags #{zen.fhir/profile-schema zen/schema},
+         :zen.fhir/profileUri "http://hl7.org.au/fhir/core/StructureDefinition/au-core-documentcomposition",
+         :require #{:category
+                    :section
+                    :custodian
+                    :identifier
+                    :subject},
+         :type zen/map,
+         :zen/desc "This profile sets minimum expectations for a Composition resource to record, search, and fetch a clinical document for a patient. It is based on the [AU Base Composition](http://build.fhir.org/ig/hl7au/au-fhir-base/StructureDefinition-au-composition.html) profile and identifies the *additional* mandatory core elements, extensions, vocabularies and value sets that **SHALL** be present in the Composition when conforming to this profile. It provides the floor for standards development for specific uses cases in an Australian context.",
+         :keys {:category {:type zen/vector,
+                           :every {:fhir/flags #{:MS}},
+                           :minItems 1},
+                :date {:fhir/flags #{:MS}},
+                :encounter {:fhir/flags #{:MS},
+                            :confirms #{zen.fhir/Reference},
+                            :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-encounter/schema}}},
+                :section {:type zen/vector,
+                          :every {:confirms #{hl7-fhir-au-core.au-core-documentcomposition/section-schema}},
+                          :minItems 1},
+                :attester {:type zen/vector,
+                           :every {:type zen/map,
+                                   :keys {:mode {:fhir/flags #{:MS}},
+                                          :time {:fhir/flags #{:MS}},
+                                          :party {:fhir/flags #{:MS},
+                                                  :confirms #{zen.fhir/Reference},
+                                                  :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-practitionerrole/schema
+                                                                                 hl7-fhir-au-core.au-core-organization/schema
+                                                                                 hl7-fhir-au-core.au-core-relatedperson/schema
+                                                                                 hl7-fhir-au-core.au-core-patient/schema}}}},
+                                   :require #{:party :time},
+                                   :fhir/flags #{:MS}}},
+                :informationRecipient {:type zen/vector,
+                                       :every {:confirms #{hl7-fhir-au-base.information-recipient/schema},
+                                               :fhir/extensionUri "http://hl7.org.au/fhir/StructureDefinition/information-recipient",
+                                               :fhir/flags #{:MS}}},
+                :type {:fhir/flags #{:MS},
+                       :zen/desc "Document sub type"},
+                :title {:fhir/flags #{:MS}},
+                :author {:type zen/vector,
+                         :every {:fhir/flags #{:MS},
+                                 :confirms #{zen.fhir/Reference},
+                                 :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-practitionerrole/schema
+                                                                hl7-fhir-au-core.au-core-relatedperson/schema
+                                                                hl7-fhir-au-core.au-core-patient/schema
+                                                                hl7-fhir-au-core.au-core-device-system/schema}}}},
+                :custodian {:fhir/flags #{:MS},
+                            :confirms #{zen.fhir/Reference},
+                            :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-organization/schema}}},
+                :status {:fhir/flags #{:MS}},
+                :identifier {:fhir/flags #{:MS}},
+                :relatesTo {:type zen/vector,
+                            :every {:type zen/map,
+                                    :keys {:code {:fhir/flags #{:MS}},
+                                           :target {:fhir/polymorphic true,
+                                                    :type zen/map,
+                                                    :fhir/flags #{:MS}}},
+                                    :fhir/flags #{:MS}}},
+                :subject {:fhir/flags #{:MS},
+                          :confirms #{zen.fhir/Reference},
+                          :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-patient/schema}}}},
+         :zen.fhir/type "Composition"},
+ section-schema {:zen/tags #{zen/schema zen.fhir/structure-schema},
+                 :zen.fhir/version "0.6.22",
+                 :type zen/map,
+                 :keys {:section {:type zen/vector,
+                                  :every {:confirms #{hl7-fhir-au-core.au-core-documentcomposition/section-schema}}},
+                        :mode {:const {:value "snapshot"}},
+                        :title {:fhir/flags #{:MS}},
+                        :emptyReason {:fhir/flags #{:MS}},
+                        :code {:fhir/flags #{:MS}},
+                        :entry {:type zen/vector,
+                                :every {:type zen/map,
+                                        :require #{:reference},
+                                        :fhir/flags #{:MS},
+                                        :confirms #{zen.fhir/Reference},
+                                        :zen.fhir/reference {:refers #{}}}},
+                        :text {:fhir/flags #{:MS}}},
+                 :fhir/flags #{:MS}}}

@@ -1,0 +1,62 @@
+{ns hl7-fhir-au-core.au-core-procedure,
+ import #{zen.fhir
+          hl7-fhir-au-core.au-core-encounter
+          hl7-fhir-au-core.au-core-observation
+          hl7-fhir-au-base.au-procedure
+          hl7-fhir-au-core.au-core-documentreference
+          hl7-fhir-au-core.au-core-patient
+          hl7-fhir-au-core.au-core-practitionerrole
+          hl7-fhir-au-core.au-core-relatedperson
+          hl7-fhir-au-core.au-core-procedure
+          hl7-fhir-au-core.au-core-practitioner
+          hl7-fhir-au-core.au-core-condition},
+ schema {:zen.fhir/version "0.6.22",
+         :confirms #{hl7-fhir-au-base.au-procedure/schema
+                     zen.fhir/Resource},
+         :zen/tags #{zen.fhir/profile-schema zen/schema},
+         :zen.fhir/profileUri "http://hl7.org.au/fhir/core/StructureDefinition/au-core-procedure",
+         :require #{:performed :code},
+         :type zen/map,
+         :zen/desc "This profile sets minimum expectations for a Procedure resource to record, search, and fetch procedures associated with a patient. It is based on the [AU Base Procedure](http://build.fhir.org/ig/hl7au/au-fhir-base/StructureDefinition-au-procedure.html) profile and identifies the *additional* mandatory core elements, extensions, vocabularies and value sets that **SHALL** be present in the Procedure resource when conforming to this profile. It provides the floor for standards development for specific uses cases in an Australian context.",
+         :keys {:category {:fhir/flags #{:MS}},
+                :encounter {:fhir/flags #{:MS},
+                            :confirms #{zen.fhir/Reference},
+                            :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-encounter/schema}}},
+                :reasonCode {:type zen/vector,
+                             :every {:fhir/flags #{:MS}}},
+                :statusReason {:fhir/flags #{:MS}},
+                :performed {:fhir/polymorphic true,
+                            :type zen/map,
+                            :fhir/flags #{:MS}},
+                :asserter {:fhir/flags #{:MS},
+                           :confirms #{zen.fhir/Reference},
+                           :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-practitionerrole/schema
+                                                          hl7-fhir-au-core.au-core-practitioner/schema
+                                                          hl7-fhir-au-core.au-core-relatedperson/schema
+                                                          hl7-fhir-au-core.au-core-patient/schema}}},
+                :note {:type zen/vector, :every {:fhir/flags #{:MS}}},
+                :status {:fhir/flags #{:MS}},
+                :recorder {:fhir/flags #{:MS},
+                           :confirms #{zen.fhir/Reference},
+                           :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-practitionerrole/schema
+                                                          hl7-fhir-au-core.au-core-practitioner/schema
+                                                          hl7-fhir-au-core.au-core-relatedperson/schema
+                                                          hl7-fhir-au-core.au-core-patient/schema}}},
+                :code {:fhir/flags #{:MS}},
+                :bodySite {:type zen/vector,
+                           :every {:fhir/flags #{:MS}}},
+                :subject {:fhir/flags #{:MS},
+                          :confirms #{zen.fhir/Reference},
+                          :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-patient/schema}}},
+                :reasonReference {:type zen/vector,
+                                  :every {:fhir/polymorphic true,
+                                          :type zen/map,
+                                          :keys {:reference {:confirms #{zen.fhir/Reference},
+                                                             :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-observation/schema
+                                                                                            hl7-fhir-au-core.au-core-documentreference/schema
+                                                                                            hl7-fhir-au-core.au-core-procedure/schema
+                                                                                            hl7-fhir-au-core.au-core-condition/schema}}}},
+                                          :fhir/flags #{:MS},
+                                          :confirms #{zen.fhir/Reference},
+                                          :zen.fhir/reference {:refers #{}}}}},
+         :zen.fhir/type "Procedure"}}

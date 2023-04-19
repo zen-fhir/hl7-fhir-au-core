@@ -1,0 +1,60 @@
+{ns hl7-fhir-au-core.au-core-sexassignedatbirth,
+ import #{hl7-fhir-r4-core.Observation
+          zen.fhir
+          hl7-fhir-au-core.au-core-patient
+          hl7-fhir-au-core.au-core-practitionerrole
+          hl7-fhir-au-core.au-core-relatedperson
+          hl7-fhir-au-core.au-core-practitioner
+          hl7-fhir-au-core.au-core-careteam
+          hl7-fhir-au-core.au-core-organization
+          hl7-fhir-au-core.au-core-sexassignedatbirth},
+ referenceRange-schema {:zen/tags #{zen/schema
+                                    zen.fhir/structure-schema},
+                        :zen.fhir/version "0.6.22"},
+ schema {:zen.fhir/version "0.6.22",
+         :confirms #{hl7-fhir-r4-core.Observation/schema
+                     zen.fhir/Resource},
+         :zen/tags #{zen.fhir/profile-schema zen/schema},
+         :zen.fhir/profileUri "http://hl7.org.au/fhir/core/StructureDefinition/au-core-sexassignedatbirth",
+         :require #{:effective :subject},
+         :type zen/map,
+         :zen/desc "This profile sets minimum expectations for an Observation resource to record, search, and fetch observations that represent a patient’s biological sex assigned at birth with standard coding. It is based on the core FHIR [Observation](http://hl7.org/fhir/R4/observation.html) resource and identifies the *additional* mandatory core elements, extensions, vocabularies and value sets that **SHALL** be present in the Observation resource when conforming to this profile. It provides the floor for standards development for specific uses cases in an Australian context. \n\n Biological sex assigned at birth refers to what was determined by sex characteristics observed at birth or infancy, including genital and chromosome composition. Sex assigned at birth is captured once for a patient and is not expected to change within their lifetime.",
+         :keys {:status {:const {:value "final"}, :fhir/flags #{:MS}},
+                :code {:type zen/map,
+                       :keys {:coding {:type zen/vector,
+                                       :slicing {:slices {"snomedSexAtBirth" {:schema {:type zen/vector,
+                                                                                       :minItems 1,
+                                                                                       :maxItems 1},
+                                                                              :filter {:engine :match,
+                                                                                       :match {:system "http://snomed.info/sct",
+                                                                                               :code "1515311000168102"}}},
+                                                          "loincSexAtBirth" {:schema {:type zen/vector,
+                                                                                      :maxItems 1},
+                                                                             :filter {:engine :match,
+                                                                                      :match {:system "http://loinc.org",
+                                                                                              :code "76689-9"}}}}},
+                                       :minItems 1}},
+                       :require #{:coding},
+                       :fhir/flags #{:MS}},
+                :subject {:fhir/flags #{:MS},
+                          :confirms #{zen.fhir/Reference},
+                          :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-patient/schema}}},
+                :effective {:fhir/polymorphic true,
+                            :type zen/map,
+                            :fhir/flags #{:MS},
+                            :zen/desc "Date, and optionally time, the observation was performed"},
+                :performer {:type zen/vector,
+                            :every {:fhir/flags #{:MS},
+                                    :confirms #{zen.fhir/Reference},
+                                    :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-careteam/schema
+                                                                   hl7-fhir-au-core.au-core-practitionerrole/schema
+                                                                   hl7-fhir-au-core.au-core-organization/schema
+                                                                   hl7-fhir-au-core.au-core-practitioner/schema
+                                                                   hl7-fhir-au-core.au-core-relatedperson/schema}}}},
+                :value {:fhir/polymorphic true,
+                        :type zen/map,
+                        :fhir/flags #{:MS},
+                        :zen/desc "Sex assigned at birth"},
+                :dataAbsentReason {:fhir/flags #{:MS}},
+                :referenceRange {:confirms #{hl7-fhir-au-core.au-core-sexassignedatbirth/referenceRange-schema}}},
+         :zen.fhir/type "Observation"}}

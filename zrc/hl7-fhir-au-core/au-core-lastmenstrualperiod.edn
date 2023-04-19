@@ -1,0 +1,61 @@
+{ns hl7-fhir-au-core.au-core-lastmenstrualperiod,
+ import #{hl7-fhir-r4-core.Observation
+          zen.fhir
+          hl7-fhir-au-core.au-core-encounter
+          hl7-fhir-au-core.au-core-patient
+          hl7-fhir-au-core.au-core-practitionerrole
+          hl7-fhir-au-core.au-core-relatedperson
+          hl7-fhir-au-core.au-core-lastmenstrualperiod
+          hl7-fhir-au-core.au-core-practitioner
+          hl7-fhir-au-core.au-core-organization},
+ referenceRange-schema {:zen/tags #{zen/schema
+                                    zen.fhir/structure-schema},
+                        :zen.fhir/version "0.6.22"},
+ schema {:zen.fhir/version "0.6.22",
+         :confirms #{hl7-fhir-r4-core.Observation/schema
+                     zen.fhir/Resource},
+         :zen/tags #{zen.fhir/profile-schema zen/schema},
+         :zen.fhir/profileUri "http://hl7.org.au/fhir/core/StructureDefinition/au-core-lastmenstrualperiod",
+         :require #{:effective :subject},
+         :type zen/map,
+         :zen/desc "This profile sets minimum expectations for an Observation resource to record, search, and fetch observations that represent the date of a patient’s last known menstrual period at a point in time with standard coding and value. It is based on the core FHIR [Observation](http://hl7.org/fhir/R4/observation.html) resource and identifies the *additional* mandatory core elements, extensions, vocabularies and value sets that **SHALL** be present in the Observation resource when conforming to this profile. It provides the floor for standards development for specific uses cases in an Australian context.",
+         :keys {:referenceRange {:confirms #{hl7-fhir-au-core.au-core-lastmenstrualperiod/referenceRange-schema}},
+                :encounter {:fhir/flags #{:MS},
+                            :confirms #{zen.fhir/Reference},
+                            :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-encounter/schema}}},
+                :value {:fhir/polymorphic true,
+                        :type zen/map,
+                        :fhir/flags #{:MS}},
+                :status {:const {:value "final"}, :fhir/flags #{:MS}},
+                :effective {:fhir/polymorphic true,
+                            :type zen/map,
+                            :fhir/flags #{:MS},
+                            :zen/desc "Date, and optionally time, the observation was performed"},
+                :code {:match {:coding #{{:system "http://snomed.info/sct",
+                                          :code "21840007"}}},
+                       :type zen/map,
+                       :keys {:coding {:type zen/vector,
+                                       :slicing {:slices {"loincLastMenstrualPeriod" {:schema {:type zen/vector,
+                                                                                               :maxItems 1,
+                                                                                               :every {:type zen/map,
+                                                                                                       :keys {:system {:const {:value "http://loinc.org"}},
+                                                                                                              :code {:const {:value "8665-2"}}},
+                                                                                                       :require #{:system
+                                                                                                                  :code}}},
+                                                                                      :filter {:engine :match,
+                                                                                               :match {:code "8665-2",
+                                                                                                       :system "http://loinc.org"}}}}}}},
+                       :fhir/flags #{:MS}},
+                :subject {:fhir/flags #{:MS},
+                          :confirms #{zen.fhir/Reference},
+                          :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-patient/schema}}},
+                :performer {:type zen/vector,
+                            :every {:fhir/flags #{:MS},
+                                    :confirms #{zen.fhir/Reference},
+                                    :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-practitionerrole/schema
+                                                                   hl7-fhir-au-core.au-core-organization/schema
+                                                                   hl7-fhir-au-core.au-core-practitioner/schema
+                                                                   hl7-fhir-au-core.au-core-relatedperson/schema
+                                                                   hl7-fhir-au-core.au-core-patient/schema}}}},
+                :dataAbsentReason {:fhir/flags #{:MS}}},
+         :zen.fhir/type "Observation"}}

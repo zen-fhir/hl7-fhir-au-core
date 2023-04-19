@@ -1,0 +1,48 @@
+{ns hl7-fhir-au-core.au-core-healthprogramparticipation,
+ import #{zen.fhir
+          hl7-fhir-au-base.au-healthprogramparticipation
+          hl7-fhir-au-core.au-core-patient
+          hl7-fhir-au-core.au-core-practitionerrole
+          hl7-fhir-au-core.au-core-relatedperson
+          hl7-fhir-au-core.au-core-healthprogramparticipation
+          hl7-fhir-au-core.au-core-organization},
+ referenceRange-schema {:zen/tags #{zen/schema
+                                    zen.fhir/structure-schema},
+                        :zen.fhir/version "0.6.22"},
+ schema {:zen.fhir/version "0.6.22",
+         :confirms #{hl7-fhir-au-base.au-healthprogramparticipation/schema
+                     zen.fhir/Resource},
+         :zen/tags #{zen.fhir/profile-schema zen/schema},
+         :zen.fhir/profileUri "http://hl7.org.au/fhir/core/StructureDefinition/au-core-healthprogramparticipation",
+         :require #{:category :component :effective},
+         :type zen/map,
+         :zen/desc "This profile sets minimum expectations for an Observation resource to record, search, and fetch information about a patient’s participation in a health program. It is based on the [AU Base Health Program Participation Summary](http://hl7.org.au/fhir/StructureDefinition/au-healthprogramparticipation) profile and identifies the *additional* mandatory core elements, extensions, vocabularies and value sets that **SHALL** be present in the Observation when conforming to this profile. It provides the floor for standards development for specific uses cases in an Australian context.",
+         :keys {:status {:const {:value "final"}, :fhir/flags #{:MS}},
+                :category {:type zen/vector,
+                           :slicing {:slices {"hPCat" {:schema {:type zen/vector,
+                                                                :minItems 1,
+                                                                :maxItems 1},
+                                                       :filter {:engine :match,
+                                                                :match {:coding #{{:system "http://terminology.hl7.org.au/CodeSystem/observation-category",
+                                                                                   :code "program"}}}}}}},
+                           :every {:fhir/flags #{:MS}},
+                           :minItems 1},
+                :code {:fhir/flags #{:MS}},
+                :subject {:fhir/flags #{:MS},
+                          :confirms #{zen.fhir/Reference},
+                          :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-patient/schema}}},
+                :effective {:fhir/polymorphic true,
+                            :type zen/map,
+                            :fhir/flags #{:MS}},
+                :performer {:type zen/vector,
+                            :every {:fhir/flags #{:MS},
+                                    :confirms #{zen.fhir/Reference},
+                                    :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-practitionerrole/schema
+                                                                   hl7-fhir-au-core.au-core-organization/schema
+                                                                   hl7-fhir-au-core.au-core-relatedperson/schema
+                                                                   hl7-fhir-au-core.au-core-patient/schema}}}},
+                :component {:type zen/vector,
+                            :slicing {:slices {}},
+                            :minItems 1},
+                :referenceRange {:confirms #{hl7-fhir-au-core.au-core-healthprogramparticipation/referenceRange-schema}}},
+         :zen.fhir/type "Observation"}}

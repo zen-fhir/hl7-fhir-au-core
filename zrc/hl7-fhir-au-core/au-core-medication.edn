@@ -1,0 +1,37 @@
+{ns hl7-fhir-au-core.au-core-medication,
+ import #{zen.fhir
+          hl7-fhir-au-base.au-medication
+          hl7-fhir-au-core.au-core-substance
+          hl7-fhir-au-core.au-core-medication
+          hl7-fhir-au-core.au-core-organization},
+ schema {:zen.fhir/version "0.6.22",
+         :confirms #{hl7-fhir-au-base.au-medication/schema
+                     zen.fhir/Resource},
+         :zen/tags #{zen.fhir/profile-schema zen/schema},
+         :zen.fhir/profileUri "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medication",
+         :require #{:code},
+         :type zen/map,
+         :zen/desc "This profile sets minimum expectations for a Medication resource to record, search, and fetch medications associated with a patient. It is based on the [AU Base Medication](http://build.fhir.org/ig/hl7au/au-fhir-base/StructureDefinition-au-medication.html) profile and identifies the *additional* mandatory core elements, extensions, vocabularies and value sets that **SHALL** be present in the Medication when conforming to this profile. It provides the floor for standards development for specific uses cases in an Australian context. \n\nIn AU Core a Medication resource is used within the context of a referencing resource: MedicationAdministration, MedicationDispense, MedicationRequest, or MedicationStatement resource.",
+         :keys {:code {:type zen/map,
+                       :keys {:coding {:type zen/vector,
+                                       :slicing {:slices {}}}},
+                       :fhir/flags #{:MS}},
+                :manufacturer {:fhir/flags #{:MS},
+                               :confirms #{zen.fhir/Reference},
+                               :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-organization/schema}}},
+                :form {:fhir/flags #{:MS}},
+                :amount {:fhir/flags #{:MS}},
+                :ingredient {:type zen/vector,
+                             :every {:type zen/map,
+                                     :keys {:item {:fhir/polymorphic true,
+                                                   :type zen/map,
+                                                   :exclusive-keys #{#{:CodeableConcept
+                                                                       :Reference}},
+                                                   :keys {:Reference {:confirms #{zen.fhir/Reference},
+                                                                      :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-substance/schema
+                                                                                                     hl7-fhir-au-core.au-core-medication/schema}}}},
+                                                   :fhir/flags #{:MS}},
+                                            :isActive {:fhir/flags #{:MS}},
+                                            :strength {:fhir/flags #{:MS}}},
+                                     :fhir/flags #{:MS}}}},
+         :zen.fhir/type "Medication"}}

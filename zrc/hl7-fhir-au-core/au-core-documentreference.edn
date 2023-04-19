@@ -1,0 +1,64 @@
+{ns hl7-fhir-au-core.au-core-documentreference,
+ import #{zen.fhir
+          hl7-fhir-au-core.au-core-encounter
+          hl7-fhir-au-core.au-core-patient
+          hl7-fhir-au-core.au-core-practitionerrole
+          hl7-fhir-au-core.au-core-relatedperson
+          hl7-fhir-r4-core.DocumentReference
+          hl7-fhir-au-core.au-core-device-system
+          hl7-fhir-au-core.au-core-organization},
+ schema {:zen.fhir/version "0.6.22",
+         :confirms #{hl7-fhir-r4-core.DocumentReference/schema
+                     zen.fhir/Resource},
+         :zen/tags #{zen.fhir/profile-schema zen/schema},
+         :zen.fhir/profileUri "http://hl7.org.au/fhir/core/StructureDefinition/au-core-documentreference",
+         :require #{:category
+                    :date
+                    :type
+                    :author
+                    :identifier
+                    :subject},
+         :type zen/map,
+         :zen/desc "This profile sets minimum expectations for a DocumentReference resource to record, search, and fetch patient documents. It is based on the core FHIR [DocumentReference](http://hl7.org/fhir/R4/documentreference.html) resource and identifies the *additional* mandatory core elements, extensions, vocabularies and value sets that **SHALL** be present in the DocumentReference resource when conforming to this profile. It provides the floor for standards development for specific uses cases in an Australian context.",
+         :keys {:description {:fhir/flags #{:MS}},
+                :category {:type zen/vector,
+                           :every {:fhir/flags #{:MS}},
+                           :minItems 1},
+                :date {:fhir/flags #{:MS}},
+                :docStatus {:fhir/flags #{:MS}},
+                :content {:type zen/vector,
+                          :every {:type zen/map,
+                                  :keys {:attachment {:fhir/flags #{:MS}},
+                                         :format {:fhir/flags #{:MS}}},
+                                  :fhir/flags #{:MS}}},
+                :type {:fhir/flags #{:MS}},
+                :author {:type zen/vector,
+                         :every {:fhir/flags #{:MS},
+                                 :confirms #{zen.fhir/Reference},
+                                 :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-practitionerrole/schema
+                                                                hl7-fhir-au-core.au-core-organization/schema
+                                                                hl7-fhir-au-core.au-core-relatedperson/schema
+                                                                hl7-fhir-au-core.au-core-patient/schema
+                                                                hl7-fhir-au-core.au-core-device-system/schema}}},
+                         :minItems 1},
+                :custodian {:fhir/flags #{:MS},
+                            :confirms #{zen.fhir/Reference},
+                            :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-organization/schema}}},
+                :status {:fhir/flags #{:MS}},
+                :identifier {:type zen/vector,
+                             :every {:fhir/flags #{:MS}},
+                             :minItems 1},
+                :context {:type zen/map,
+                          :keys {:encounter {:type zen/vector,
+                                             :every {:fhir/flags #{:MS},
+                                                     :confirms #{zen.fhir/Reference},
+                                                     :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-encounter/schema}}}}},
+                          :fhir/flags #{:MS}},
+                :subject {:fhir/flags #{:MS},
+                          :confirms #{zen.fhir/Reference},
+                          :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-patient/schema}}},
+                :authenticator {:fhir/flags #{:MS},
+                                :confirms #{zen.fhir/Reference},
+                                :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-practitionerrole/schema
+                                                               hl7-fhir-au-core.au-core-organization/schema}}}},
+         :zen.fhir/type "DocumentReference"}}

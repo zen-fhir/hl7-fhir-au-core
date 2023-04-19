@@ -1,0 +1,78 @@
+{ns hl7-fhir-au-core.au-core-servicerequest,
+ import #{hl7-fhir-au-core.au-core-medicationrequest
+          zen.fhir
+          hl7-fhir-au-core.au-core-encounter
+          hl7-fhir-au-core.au-core-observation
+          hl7-fhir-au-core.au-core-documentreference
+          hl7-fhir-au-core.au-core-patient
+          hl7-fhir-au-core.au-core-practitionerrole
+          hl7-fhir-au-core.au-core-relatedperson
+          hl7-fhir-au-core.au-core-diagnosticreport
+          hl7-fhir-au-core.au-core-servicerequest
+          hl7-fhir-r4-core.ServiceRequest
+          hl7-fhir-au-core.au-core-practitioner
+          hl7-fhir-au-core.au-core-condition
+          hl7-fhir-au-core.au-core-careteam
+          hl7-fhir-au-core.au-core-device-system
+          hl7-fhir-au-core.au-core-organization
+          hl7-fhir-au-core.au-core-healthcareservice},
+ schema {:zen.fhir/version "0.6.22",
+         :confirms #{hl7-fhir-r4-core.ServiceRequest/schema
+                     zen.fhir/Resource},
+         :zen/tags #{zen.fhir/profile-schema zen/schema},
+         :zen.fhir/profileUri "http://hl7.org.au/fhir/core/StructureDefinition/au-core-servicerequest",
+         :require #{:requester :code :subject},
+         :type zen/map,
+         :zen/desc "This profile sets minimum expectations for a ServiceRequest resource to record, search, and fetch information about requests, plans, or orders for a service for a patient. It is based on the core [ServiceRequest]( http://hl7.org/fhir/R4/servicerequest.html) resource and identifies the *additional* mandatory core elements, extensions, vocabularies and value sets that **SHALL** be present in the ServiceRequest when conforming to this profile. It provides the floor for standards development for specific uses cases in an Australian context.",
+         :keys {:performerType {:fhir/flags #{:MS}},
+                :category {:type zen/vector,
+                           :every {:fhir/flags #{:MS}}},
+                :supportingInfo {:type zen/vector,
+                                 :every {:fhir/flags #{:MS},
+                                         :confirms #{zen.fhir/Reference},
+                                         :zen.fhir/reference {:refers #{}}}},
+                :encounter {:fhir/flags #{:MS},
+                            :confirms #{zen.fhir/Reference},
+                            :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-encounter/schema}}},
+                :reasonCode {:type zen/vector,
+                             :every {:fhir/flags #{:MS}}},
+                :authoredOn {:fhir/flags #{:MS}},
+                :requester {:fhir/flags #{:MS},
+                            :confirms #{zen.fhir/Reference},
+                            :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-practitionerrole/schema
+                                                           hl7-fhir-au-core.au-core-organization/schema
+                                                           hl7-fhir-au-core.au-core-practitioner/schema
+                                                           hl7-fhir-au-core.au-core-relatedperson/schema
+                                                           hl7-fhir-au-core.au-core-patient/schema
+                                                           hl7-fhir-au-core.au-core-device-system/schema}}},
+                :status {:fhir/flags #{:MS}},
+                :code {:fhir/flags #{:MS}},
+                :identifier {:type zen/vector,
+                             :every {:fhir/flags #{:MS}}},
+                :intent {:fhir/flags #{:MS}},
+                :basedOn {:type zen/vector,
+                          :every {:fhir/flags #{:MS},
+                                  :confirms #{zen.fhir/Reference},
+                                  :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-medicationrequest/schema
+                                                                 hl7-fhir-au-core.au-core-servicerequest/schema}}}},
+                :subject {:fhir/flags #{:MS},
+                          :confirms #{zen.fhir/Reference},
+                          :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-patient/schema}}},
+                :performer {:type zen/vector,
+                            :every {:fhir/flags #{:MS},
+                                    :confirms #{zen.fhir/Reference},
+                                    :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-careteam/schema
+                                                                   hl7-fhir-au-core.au-core-practitionerrole/schema
+                                                                   hl7-fhir-au-core.au-core-organization/schema
+                                                                   hl7-fhir-au-core.au-core-practitioner/schema
+                                                                   hl7-fhir-au-core.au-core-relatedperson/schema
+                                                                   hl7-fhir-au-core.au-core-patient/schema
+                                                                   hl7-fhir-au-core.au-core-healthcareservice/schema}}}},
+                :reasonReference {:type zen/vector,
+                                  :every {:fhir/flags #{:MS},
+                                          :confirms #{zen.fhir/Reference},
+                                          :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-observation/schema
+                                                                         hl7-fhir-au-core.au-core-documentreference/schema
+                                                                         hl7-fhir-au-core.au-core-condition/schema
+                                                                         hl7-fhir-au-core.au-core-diagnosticreport/schema}}}}},
+         :zen.fhir/type "ServiceRequest"}}

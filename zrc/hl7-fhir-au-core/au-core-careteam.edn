@@ -1,0 +1,39 @@
+{ns hl7-fhir-au-core.au-core-careteam,
+ import #{hl7-fhir-r4-core.CareTeam
+          zen.fhir
+          hl7-fhir-au-core.au-core-patient
+          hl7-fhir-au-core.au-core-practitionerrole
+          hl7-fhir-au-core.au-core-relatedperson
+          hl7-fhir-au-core.au-core-practitioner
+          hl7-fhir-au-core.au-core-careteam
+          hl7-fhir-au-core.au-core-organization},
+ schema {:zen.fhir/version "0.6.22",
+         :confirms #{hl7-fhir-r4-core.CareTeam/schema
+                     zen.fhir/Resource},
+         :zen/tags #{zen.fhir/profile-schema zen/schema},
+         :zen.fhir/profileUri "http://hl7.org.au/fhir/core/StructureDefinition/au-core-careteam",
+         :require #{:participant :subject},
+         :type zen/map,
+         :zen/desc "This profile sets minimum expectations for a CareTeam resource to record, search, and fetch information about a care team. It is based on the core [CareTeam]( http://hl7.org/fhir/R4/careteam.html) resource and identifies the *additional* mandatory core elements, extensions, vocabularies and value sets that **SHALL** be present in the CareTeam when conforming to this profile. It provides the floor for standards development for specific uses cases in an Australian context.",
+         :keys {:identifier {:type zen/vector,
+                             :every {:fhir/flags #{:MS}}},
+                :status {:fhir/flags #{:MS}},
+                :subject {:fhir/flags #{:MS},
+                          :confirms #{zen.fhir/Reference},
+                          :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-patient/schema}}},
+                :participant {:type zen/vector,
+                              :every {:type zen/map,
+                                      :keys {:role {:type zen/vector,
+                                                    :every {:fhir/flags #{:MS}},
+                                                    :minItems 1},
+                                             :member {:fhir/flags #{:MS},
+                                                      :confirms #{zen.fhir/Reference},
+                                                      :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-careteam/schema
+                                                                                     hl7-fhir-au-core.au-core-practitionerrole/schema
+                                                                                     hl7-fhir-au-core.au-core-organization/schema
+                                                                                     hl7-fhir-au-core.au-core-practitioner/schema
+                                                                                     hl7-fhir-au-core.au-core-relatedperson/schema}}}},
+                                      :require #{:role :member},
+                                      :fhir/flags #{:MS}},
+                              :minItems 1}},
+         :zen.fhir/type "CareTeam"}}
