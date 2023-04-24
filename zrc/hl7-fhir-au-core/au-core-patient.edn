@@ -1,6 +1,6 @@
 {ns hl7-fhir-au-core.au-core-patient,
  import #{zen.fhir hl7-fhir-au-base.au-patient},
- schema {:zen.fhir/version "0.6.22",
+ schema {:zen.fhir/version "0.6.22-1",
          :confirms #{hl7-fhir-au-base.au-patient/schema
                      zen.fhir/Resource},
          :zen/tags #{zen.fhir/profile-schema zen/schema},
