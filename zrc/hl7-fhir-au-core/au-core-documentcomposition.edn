@@ -9,7 +9,7 @@
           hl7-fhir-au-base.au-composition
           hl7-fhir-au-core.au-core-device-system
           hl7-fhir-au-core.au-core-organization},
- schema {:zen.fhir/version "0.6.23",
+ schema {:zen.fhir/version "0.6.23-1",
          :confirms #{hl7-fhir-au-base.au-composition/schema
                      zen.fhir/Resource},
          :zen/tags #{zen.fhir/profile-schema zen/schema},
@@ -74,7 +74,7 @@
                           :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-patient/schema}}}},
          :zen.fhir/type "Composition"},
  section-schema {:zen/tags #{zen/schema zen.fhir/structure-schema},
-                 :zen.fhir/version "0.6.23",
+                 :zen.fhir/version "0.6.23-1",
                  :type zen/map,
                  :keys {:section {:type zen/vector,
                                   :every {:confirms #{hl7-fhir-au-core.au-core-documentcomposition/section-schema}}},
