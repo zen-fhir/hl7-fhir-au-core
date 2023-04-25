@@ -7,7 +7,7 @@
           hl7-fhir-r4-core.DocumentReference
           hl7-fhir-au-core.au-core-device-system
           hl7-fhir-au-core.au-core-organization},
- schema {:zen.fhir/version "0.6.22-2",
+ schema {:zen.fhir/version "0.6.23",
          :confirms #{hl7-fhir-r4-core.DocumentReference/schema
                      zen.fhir/Resource},
          :zen/tags #{zen.fhir/profile-schema zen/schema},
