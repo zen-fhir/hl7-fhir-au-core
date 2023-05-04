@@ -1,12 +1,8 @@
 {ns hl7-fhir-au-core.au-core-lipid-result,
  import #{hl7-fhir-au-core.value-set.lipid-result-reporting
           zen.fhir
-          hl7-fhir-au-core.au-core-diagnosticresult-path
-          hl7-fhir-au-core.au-core-lipid-result},
- referenceRange-schema {:zen/tags #{zen/schema
-                                    zen.fhir/structure-schema},
-                        :zen.fhir/version "0.6.23-1"},
- schema {:zen.fhir/version "0.6.23-1",
+          hl7-fhir-au-core.au-core-diagnosticresult-path},
+ schema {:zen.fhir/version "0.6.24",
          :confirms #{hl7-fhir-au-core.au-core-diagnosticresult-path/schema
                      zen.fhir/Resource},
          :zen/tags #{zen.fhir/profile-schema zen/schema},
@@ -22,6 +18,5 @@
                         :keys {:Quantity {:type zen/map,
                                           :keys {:system {:const {:value "http://unitsofmeasure.org"}},
                                                  :code {:const {:value "mmol/L"}}},
-                                          :require #{:value}}}},
-                :referenceRange {:confirms #{hl7-fhir-au-core.au-core-lipid-result/referenceRange-schema}}},
+                                          :require #{:value}}}}},
          :zen.fhir/type "Observation"}}

@@ -6,13 +6,9 @@
           hl7-fhir-r4-core.Patient
           hl7-fhir-au-core.au-core-practitionerrole
           hl7-fhir-au-core.au-core-relatedperson
-          hl7-fhir-au-core.au-core-parity
           hl7-fhir-au-core.au-core-practitioner
           hl7-fhir-au-core.au-core-organization},
- referenceRange-schema {:zen/tags #{zen/schema
-                                    zen.fhir/structure-schema},
-                        :zen.fhir/version "0.6.23-1"},
- schema {:zen.fhir/version "0.6.23-1",
+ schema {:zen.fhir/version "0.6.24",
          :confirms #{hl7-fhir-r4-core.Observation/schema
                      zen.fhir/Resource},
          :zen/tags #{zen.fhir/profile-schema zen/schema},
@@ -20,8 +16,7 @@
          :require #{:value :effective :subject},
          :type zen/map,
          :zen/desc "This profile sets minimum expectations for an Observation resource to record, search, and fetch observations that represent parity count related to pregnancy at a point in time associated with a patient with standard coding and units. It is based on the core FHIR [Observation](http://hl7.org/fhir/R4/observation.html) resource and identifies the *additional* mandatory core elements, extensions, vocabularies and value sets that **SHALL** be present in the Observation resource when conforming to this profile. It provides the floor for standards development for specific uses cases in an Australian context.",
-         :keys {:referenceRange {:confirms #{hl7-fhir-au-core.au-core-parity/referenceRange-schema}},
-                :encounter {:fhir/flags #{:MS},
+         :keys {:encounter {:fhir/flags #{:MS},
                             :confirms #{zen.fhir/Reference},
                             :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-encounter/schema}}},
                 :value {:fhir/polymorphic true,

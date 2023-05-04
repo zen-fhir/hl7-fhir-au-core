@@ -1,6 +1,6 @@
 {ns hl7-fhir-au-core.au-core-organization,
  import #{zen.fhir hl7-fhir-au-base.au-organization},
- schema {:zen.fhir/version "0.6.23-1",
+ schema {:zen.fhir/version "0.6.24",
          :confirms #{hl7-fhir-au-base.au-organization/schema
                      zen.fhir/Resource},
          :zen/tags #{zen.fhir/profile-schema zen/schema},

@@ -4,12 +4,8 @@
           hl7-fhir-au-core.au-core-patient
           hl7-fhir-au-core.au-core-practitionerrole
           hl7-fhir-au-core.au-core-relatedperson
-          hl7-fhir-au-core.au-core-healthprogramparticipation
           hl7-fhir-au-core.au-core-organization},
- referenceRange-schema {:zen/tags #{zen/schema
-                                    zen.fhir/structure-schema},
-                        :zen.fhir/version "0.6.23-1"},
- schema {:zen.fhir/version "0.6.23-1",
+ schema {:zen.fhir/version "0.6.24",
          :confirms #{hl7-fhir-au-base.au-healthprogramparticipation/schema
                      zen.fhir/Resource},
          :zen/tags #{zen.fhir/profile-schema zen/schema},
@@ -43,6 +39,5 @@
                                                                    hl7-fhir-au-core.au-core-patient/schema}}}},
                 :component {:type zen/vector,
                             :slicing {:slices {}},
-                            :minItems 1},
-                :referenceRange {:confirms #{hl7-fhir-au-core.au-core-healthprogramparticipation/referenceRange-schema}}},
+                            :minItems 1}},
          :zen.fhir/type "Observation"}}

@@ -6,12 +6,8 @@
           hl7-fhir-au-core.au-core-relatedperson
           hl7-fhir-au-core.au-core-practitioner
           hl7-fhir-au-core.au-core-careteam
-          hl7-fhir-au-core.au-core-organization
-          hl7-fhir-au-core.au-core-sexassignedatbirth},
- referenceRange-schema {:zen/tags #{zen/schema
-                                    zen.fhir/structure-schema},
-                        :zen.fhir/version "0.6.23-1"},
- schema {:zen.fhir/version "0.6.23-1",
+          hl7-fhir-au-core.au-core-organization},
+ schema {:zen.fhir/version "0.6.24",
          :confirms #{hl7-fhir-r4-core.Observation/schema
                      zen.fhir/Resource},
          :zen/tags #{zen.fhir/profile-schema zen/schema},
@@ -55,6 +51,5 @@
                         :type zen/map,
                         :fhir/flags #{:MS},
                         :zen/desc "Sex assigned at birth"},
-                :dataAbsentReason {:fhir/flags #{:MS}},
-                :referenceRange {:confirms #{hl7-fhir-au-core.au-core-sexassignedatbirth/referenceRange-schema}}},
+                :dataAbsentReason {:fhir/flags #{:MS}}},
          :zen.fhir/type "Observation"}}

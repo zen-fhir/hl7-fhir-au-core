@@ -2,16 +2,12 @@
  import #{hl7-fhir-r4-core.Observation
           zen.fhir
           hl7-fhir-au-core.au-core-encounter
-          hl7-fhir-au-core.au-core-smokingceasedate
           hl7-fhir-au-core.au-core-patient
           hl7-fhir-au-core.au-core-practitionerrole
           hl7-fhir-au-core.au-core-relatedperson
           hl7-fhir-au-core.au-core-practitioner
           hl7-fhir-au-core.au-core-organization},
- referenceRange-schema {:zen/tags #{zen/schema
-                                    zen.fhir/structure-schema},
-                        :zen.fhir/version "0.6.23-1"},
- schema {:zen.fhir/version "0.6.23-1",
+ schema {:zen.fhir/version "0.6.24",
          :confirms #{hl7-fhir-r4-core.Observation/schema
                      zen.fhir/Resource},
          :zen/tags #{zen.fhir/profile-schema zen/schema},
@@ -28,7 +24,6 @@
                                                                                            :code "social-history"}}}}}}},
                            :every {:fhir/flags #{:MS}},
                            :minItems 1},
-                :referenceRange {:confirms #{hl7-fhir-au-core.au-core-smokingceasedate/referenceRange-schema}},
                 :encounter {:fhir/flags #{:MS},
                             :confirms #{zen.fhir/Reference},
                             :zen.fhir/reference {:refers #{hl7-fhir-au-core.au-core-encounter/schema}}},
