@@ -5,7 +5,7 @@
           hl7-fhir-au-core.au-core-practitioner
           hl7-fhir-au-core.au-core-organization
           hl7-fhir-au-core.au-core-healthcareservice},
- schema {:zen.fhir/version "0.6.24",
+ schema {:zen.fhir/version "0.6.25-1",
          :confirms #{hl7-fhir-au-base.au-practitionerrole/schema
                      zen.fhir/Resource},
          :zen/tags #{zen.fhir/profile-schema zen/schema},

@@ -4,7 +4,7 @@
           hl7-fhir-au-core.au-core-substance
           hl7-fhir-au-core.au-core-medication
           hl7-fhir-au-core.au-core-organization},
- schema {:zen.fhir/version "0.6.24",
+ schema {:zen.fhir/version "0.6.25-1",
          :confirms #{hl7-fhir-au-base.au-medication/schema
                      zen.fhir/Resource},
          :zen/tags #{zen.fhir/profile-schema zen/schema},
