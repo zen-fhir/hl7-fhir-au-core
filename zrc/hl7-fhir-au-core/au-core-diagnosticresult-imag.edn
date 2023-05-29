@@ -9,14 +9,14 @@
           hl7-fhir-au-core.au-core-organization},
  referenceRange-schema {:zen/tags #{zen/schema
                                     zen.fhir/structure-schema},
-                        :zen.fhir/version "0.6.25-1",
+                        :zen.fhir/version "0.6.27",
                         :type zen/map,
                         :keys {:low {:fhir/flags #{:MS}},
                                :high {:fhir/flags #{:MS}},
                                :type {:fhir/flags #{:MS}},
                                :text {:fhir/flags #{:MS}}},
                         :fhir/flags #{:MS}},
- schema {:zen.fhir/version "0.6.25-1",
+ schema {:zen.fhir/version "0.6.27",
          :confirms #{hl7-fhir-au-base.au-imagingresult/schema
                      zen.fhir/Resource},
          :zen/tags #{zen.fhir/profile-schema zen/schema},

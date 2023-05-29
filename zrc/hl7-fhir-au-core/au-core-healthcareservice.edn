@@ -3,7 +3,7 @@
           hl7-fhir-au-core.au-core-location
           hl7-fhir-au-base.au-healthcareservice
           hl7-fhir-au-core.au-core-organization},
- schema {:zen.fhir/version "0.6.25-1",
+ schema {:zen.fhir/version "0.6.27",
          :confirms #{hl7-fhir-au-base.au-healthcareservice/schema
                      zen.fhir/Resource},
          :zen/tags #{zen.fhir/profile-schema zen/schema},
