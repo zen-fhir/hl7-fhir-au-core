@@ -16,7 +16,7 @@
           hl7-fhir-au-core.au-core-device-system
           hl7-fhir-au-core.au-core-organization
           hl7-fhir-au-core.au-core-healthcareservice},
- schema {:zen.fhir/version "0.6.30",
+ schema {:zen.fhir/version "0.6.30-1",
          :confirms #{hl7-fhir-r4-core.ServiceRequest/schema
                      zen.fhir/Resource},
          :zen/tags #{zen.fhir/profile-schema zen/schema},

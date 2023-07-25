@@ -6,7 +6,7 @@
           hl7-fhir-au-core.au-core-practitionerrole
           hl7-fhir-au-core.au-core-relatedperson
           hl7-fhir-au-core.au-core-practitioner},
- schema {:zen.fhir/version "0.6.30",
+ schema {:zen.fhir/version "0.6.30-1",
          :confirms #{zen.fhir/Resource
                      hl7-fhir-au-base.au-allergyintolerance/schema},
          :zen/tags #{zen.fhir/profile-schema zen/schema},
