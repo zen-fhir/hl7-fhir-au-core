@@ -11,7 +11,7 @@
           hl7-fhir-au-base.dispense-number
           hl7-fhir-au-core.au-core-medication
           hl7-fhir-au-core.au-core-organization},
- schema {:zen.fhir/version "0.6.30-10",
+ schema {:zen.fhir/version "0.6.30-11",
          :confirms #{hl7-fhir-au-base.au-medicationdispense/schema
                      zen.fhir/Resource},
          :zen/tags #{zen.fhir/profile-schema zen/schema},
